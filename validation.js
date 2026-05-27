@@ -12,7 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
         /* Live Validation Styling */
         .form-group {
             position: relative;
-            margin-bottom: 2.2rem !important; /* Extra spacing for absolute error labels */
+            margin-bottom: 2rem !important; /* Premium responsive layout flow */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @media (max-width: 768px) {
+            .form-group {
+                margin-bottom: 1.5rem !important;
+            }
         }
         
         .form-group input, 
@@ -21,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
             transition: border-color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
                         box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
                         background-color 0.3s ease !important;
+            width: 100%;
         }
 
         .form-group.is-valid input,
@@ -37,23 +46,30 @@ document.addEventListener("DOMContentLoaded", () => {
             box-shadow: 0 4px 12px rgba(224, 122, 95, 0.15) !important;
         }
 
-        /* Error Label styling */
+        /* Error Label styling - Non-absolute block elements for full responsiveness and alignment */
         .validation-error {
-            position: absolute;
-            bottom: -1.4rem;
-            left: 0.5rem;
+            display: block;
             font-size: 0.75rem;
             font-weight: 600;
             color: #E07A5F;
+            margin-top: 0;
             opacity: 0;
+            max-height: 0;
+            overflow: hidden;
             transform: translateY(-5px);
             transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
             pointer-events: none;
             font-family: 'Plus Jakarta Sans', sans-serif;
+            text-align: left;
+            width: 100%;
+            word-break: break-word;
+            box-sizing: border-box;
         }
 
         .form-group.is-invalid .validation-error {
             opacity: 1;
+            max-height: 80px; /* Allow up to 3-4 lines of text on mobile without overflow */
+            margin-top: 0.5rem;
             transform: translateY(0);
         }
 
@@ -366,10 +382,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 localStorage.setItem("estimatorBriefings", JSON.stringify(briefings));
 
-                // Trigger beautiful modal overlay
-                enquiryOverlay.classList.add("is-active");
-                document.body.style.overflow = "hidden";
-
                 // Reset form fields
                 form.reset();
                 Object.keys(fields).forEach(key => {
@@ -378,6 +390,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         parent.classList.remove("is-valid", "is-invalid");
                     }
                 });
+
+                // Navigate directly to 404.html as requested
+                window.location.href = "404.html";
             } else {
                 // Shake first invalid group to draw attention
                 const firstInvalid = form.querySelector(".is-invalid");
@@ -438,13 +453,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const isValid = triggerValidation();
 
             if (isValid) {
-                // Show success modal overlay
-                newsletterOverlay.classList.add("is-active");
-                document.body.style.overflow = "hidden";
-
                 // Reset form
                 form.reset();
                 form.classList.remove("is-valid", "is-invalid");
+
+                // Navigate directly to 404.html as requested
+                window.location.href = "404.html";
             } else {
                 // Shake form to draw attention
                 form.style.transform = "translateX(10px)";
@@ -501,15 +515,34 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // ================= NEWSLETTER VALIDATION =================
+    const footerNewsletterForms = document.querySelectorAll(".footer-newsletter-form");
+    footerNewsletterForms.forEach(form => {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const input = form.querySelector('input[type="email"]');
+            if (input && input.value.trim() !== "") {
+                window.location.href = "404.html";
+            } else {
+                // Shake if empty
+                form.style.transform = "translateX(10px)";
+                setTimeout(() => form.style.transform = "translateX(-10px)", 70);
+                setTimeout(() => form.style.transform = "translateX(5px)", 140);
+                setTimeout(() => form.style.transform = "translateX(-5px)", 210);
+                setTimeout(() => form.style.transform = "translateX(0)", 280);
+            }
+        });
+    });
+
     // ================= GLOBAL CLICK-TO-404 NAVIGATOR =================
     document.body.addEventListener("click", (e) => {
-        // Find if the click is on an allowed interactive element or inside one.
+        // Find if the click is on a dead/unused element or a placeholder that should route to 404.
         // We traverse up the DOM tree from the clicked element.
         let target = e.target;
-        let shouldGoTo404 = true;
+        let shouldGoTo404 = false;
 
         while (target && target !== document.body) {
-            // 1. Check if it is a nav link pointing to a real page
+            // 1. Check if it is a link
             if (target.tagName === "A") {
                 const href = target.getAttribute("href");
                 if (href) {
@@ -526,58 +559,60 @@ document.addEventListener("DOMContentLoaded", () => {
                         "user-dashboard.html",
                         "admin-dashboard.html"
                     ];
-                    // If it points to one of the main nav pages or login/signup/dashboards
-                    // AND it is NOT explicitly pointing to 404.html
-                    if (allowedHrefs.includes(cleanHref) && cleanHref !== "404.html") {
-                        // Allow normal navigation
-                        shouldGoTo404 = false;
-                        break;
+                    // If the link explicitly points to 404.html, or is a placeholder/dead link (#),
+                    // or points to a file that is not in the allowedHrefs (meaning it's an un-implemented route)
+                    if (cleanHref === "404.html" || cleanHref === "" || cleanHref === "#" || !allowedHrefs.includes(cleanHref)) {
+                        shouldGoTo404 = true;
                     }
+                } else {
+                    // Empty/no href on anchor is an unused/dead link placeholder
+                    shouldGoTo404 = true;
                 }
-            }
-
-            // 2. Allow form controls so user can interact with forms
-            if (
-                target.tagName === "INPUT" ||
-                target.tagName === "TEXTAREA" ||
-                target.tagName === "SELECT" ||
-                target.tagName === "BUTTON" ||
-                target.tagName === "LABEL" ||
-                target.classList.contains("success-close-btn") ||
-                target.id === "success-close-btn" ||
-                target.id === "newsletter-close-btn"
-            ) {
-                // Allow interaction
-                shouldGoTo404 = false;
                 break;
             }
 
-            // 3. Allow interactive elements in Auth screens or Dashboard sidebars that are handled separately
-            if (
-                target.classList.contains("role-tab") ||
-                target.classList.contains("menu-toggle") ||
-                target.classList.contains("hamburger") ||
-                target.id === "mobile-menu-btn" ||
-                target.id === "mobile-menu" ||
-                target.classList.contains("mobile-menu") ||
-                target.classList.contains("logout-btn")
-            ) {
-                shouldGoTo404 = false;
+            // 2. Check if it is a dead button or placeholder interactive card
+            if (target.tagName === "BUTTON") {
+                // If it is NOT inside a form, and does not have a custom form submit function,
+                // or if it explicitly triggers a redirect to 404.html (e.g. in its onclick or styling)
+                const isFormRelated = target.type === "submit" || target.closest("form");
+                const onclickStr = target.getAttribute("onclick") || "";
+                if (onclickStr.includes("404.html")) {
+                    shouldGoTo404 = true;
+                } else if (!isFormRelated && !onclickStr) {
+                    // Dead button with no handler or form context
+                    shouldGoTo404 = true;
+                }
                 break;
+            }
+
+            // 3. Check for specific classes that are intended to be placeholder navigation cards or lists
+            if (
+                target.classList.contains("project-item") ||
+                target.classList.contains("metric-card") ||
+                target.classList.contains("panel-action-btn") ||
+                target.classList.contains("social-circle-link") ||
+                target.classList.contains("sc-link") ||
+                target.classList.contains("footer-logo") ||
+                target.classList.contains("user-profile-badge")
+            ) {
+                // If they are explicitly pointing to 404 or have 404 action
+                const onclickStr = target.getAttribute("onclick") || "";
+                const href = target.getAttribute("href") || "";
+                if (onclickStr.includes("404.html") || href.includes("404.html") || href === "#" || (!onclickStr && !href)) {
+                    shouldGoTo404 = true;
+                    break;
+                }
             }
 
             // Move up
             target = target.parentElement;
         }
 
-        // If the element clicked is document.body or html itself
-        if (e.target === document.body || e.target === document.documentElement) {
-            shouldGoTo404 = true;
-        }
-
         if (shouldGoTo404) {
             // Check if we are already on 404.html to avoid infinite redirect loops
-            if (!window.location.pathname.includes("404.html")) {
+            const isNative404Link = e.target.closest("a") && e.target.closest("a").getAttribute("href") === "404.html";
+            if (!isNative404Link && !window.location.pathname.includes("404.html")) {
                 e.preventDefault();
                 e.stopPropagation();
                 window.location.href = "404.html";
