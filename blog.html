@@ -1,16 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bildium - Engineering & Construction Blog</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bildium - Engineering &amp; Construction Blog</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
         /* ================= VARIABLES & RESET ================= */
         :root {
             --bg-primary: #F4F3EE;
@@ -588,391 +587,379 @@
     </style>
 </head>
 <body>
-
-    <!-- NAVBAR -->
-    <nav id="navbar">
-        <div class="logo">
-            <img src="whitelogo.webp" alt="BILDIUM Logo" style="height: 32px; width: auto;">
-        </div>
-        <div class="desktop-nav">
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-                <a href="blog.html">Blog</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-            </div>
-            <div class="nav-actions">
-                <a href="404.html" class="btn-enquire">LOGIN</a>
-            </div>
-        </div>
-        <!-- Premium Hamburger -->
-        <div class="menu-toggle" id="mobile-menu-btn">
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- MOBILE MENU OVERLAY -->
-    <div class="mobile-menu" id="mobile-menu">
-        <div class="mobile-nav-links">
-            <a href="index.html">Home</a>
-            <a href="services.html">Services</a>
-            <a href="blog.html">Blog</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="404.html" class="mobile-login">LOGIN</a>
-        </div>
+<!-- NAVBAR -->
+<nav id="navbar">
+<a href="index.html" class="logo" style="cursor: pointer; display: flex; align-items: center;">
+<img alt="BILDIUM Logo" src="whitelogo.webp" style="height: 32px; width: auto;"/>
+</a>
+<div class="desktop-nav">
+<div class="nav-links">
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="blog.html">Blog</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+</div>
+<div class="nav-actions">
+<a class="btn-enquire" href="login.html">LOGIN</a>
+</div>
+</div>
+<!-- Premium Hamburger -->
+<div class="menu-toggle" id="mobile-menu-btn">
+<div class="hamburger">
+<span></span>
+<span></span>
+</div>
+</div>
+</nav>
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobile-menu">
+<div class="mobile-nav-links">
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+<a href="blog.html">Blog</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+<a class="mobile-login" href="login.html">LOGIN</a>
+</div>
+</div>
+<!-- BLOG HERO -->
+<section class="blog-hero">
+<div class="hero-bg" data-speed="0.8"></div>
+<div class="hero-content">
+<h1 class="hero-title" id="hero-title">JOURNAL</h1>
+<p class="hero-subtitle">INSIGHTS ON URBAN DEVELOPMENT &amp; SAFETY</p>
+</div>
+</section>
+<!-- BLOG FEED SECTION -->
+<section class="blog-section section-padding">
+<div class="container">
+<!-- Filter Tabs -->
+<div class="blog-filters gs-fade-up">
+<button class="filter-btn active" data-filter="all" onclick="window.location.href='404.html'; return false;">All Journal</button>
+<button class="filter-btn" data-filter="innovation" onclick="window.location.href='404.html'; return false;">Innovation</button>
+<button class="filter-btn" data-filter="materials" onclick="window.location.href='404.html'; return false;">Materials</button>
+<button class="filter-btn" data-filter="preservation" onclick="window.location.href='404.html'; return false;">Preservation</button>
+<button class="filter-btn" data-filter="safety" onclick="window.location.href='404.html'; return false;">Safety</button>
+</div>
+<!-- Featured Post -->
+<div class="featured-post-container gs-fade-up">
+<div class="featured-post">
+<div class="fp-img-wrap">
+<span class="bc-category" style="background:#ECAE3A;">Featured</span>
+<img alt="Decarbonization Blueprint" src="image/images (1).webp"/>
+</div>
+<div class="fp-content">
+<div class="bc-meta">
+<span>JUNE 01, 2026</span>
+<span>•</span>
+<span>8 MIN READ</span>
+</div>
+<h2 class="fp-title">The Blueprint of Decarbonization in Modern Sky-Scrapers</h2>
+<p class="fp-desc">An extensive structural breakdown of how modern engineering firms integrate carbon-offset concrete composites, active solar-capturing facades, and high-performance timber frames to achieve net-zero status.</p>
+<div class="bc-footer" style="border-top: none; padding-top: 0; margin-top: 2vw;">
+<div class="bc-author">
+<img alt="Author" class="bc-author-img" src="image/images (3).webp"/>
+<span class="bc-author-name">Marcus Finch</span>
+</div>
+<a class="bc-read-more" href="404.html">Read Article <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+</div>
+</div>
+</div>
+</div>
+<!-- Two-Column Blog Grid & Sidebar Layout -->
+<div class="blog-layout">
+<!-- Main Feed (70%) -->
+<div class="blog-main-col">
+<div class="blog-grid">
+<!-- Post 1 (Innovation) -->
+<div class="blog-card gs-fade-up" data-category="innovation">
+<div class="bc-img-wrap">
+<span class="bc-category">Innovation</span>
+<img alt="BIM Scanning" src="image/images (2).webp"/>
+</div>
+<div class="bc-content">
+<div>
+<div class="bc-meta">
+<span>MAY 26, 2026</span>
+<span>•</span>
+<span>5 MIN READ</span>
+</div>
+<h3 class="bc-title">The Future of Smart High-Rises: Concrete &amp; BIM Tech</h3>
+<p class="bc-desc">Explore how architectural Virtual BIM simulations map structural load stress offsets before concrete foundation pouring.</p>
+</div>
+<div class="bc-footer">
+<div class="bc-author">
+<img alt="Author" class="bc-author-img" src="image/images (3).webp"/>
+<span class="bc-author-name">Marcus Finch</span>
+</div>
+<a class="bc-read-more" href="404.html">Read <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+</div>
+</div>
+</div>
+<!-- Post 2 (Materials) -->
+<div class="blog-card gs-fade-up" data-category="materials" style="transition-delay: 0.1s">
+<div class="bc-img-wrap">
+<span class="bc-category">Materials</span>
+<img alt="Green Steel" src="image/images (3).webp"/>
+</div>
+<div class="bc-content">
+<div>
+<div class="bc-meta">
+<span>MAY 18, 2026</span>
+<span>•</span>
+<span>4 MIN READ</span>
+</div>
+<h3 class="bc-title">Eco-Certified Materials: Carbon Offsets in Foundations</h3>
+<p class="bc-desc">How incorporating recycled metal insulations and eco-concrete formulations significantly reduces heavy building impact footprints.</p>
+</div>
+<div class="bc-footer">
+<div class="bc-author">
+<img alt="Author" class="bc-author-img" src="image/images (4).webp"/>
+<span class="bc-author-name">Sarah Vance</span>
+</div>
+<a class="bc-read-more" href="404.html">Read <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+</div>
+</div>
+</div>
+<!-- Post 3 (Preservation) -->
+<div class="blog-card gs-fade-up" data-category="preservation" style="transition-delay: 0.2s">
+<div class="bc-img-wrap">
+<span class="bc-category">Preservation</span>
+<img alt="Historical Renovation" src="image/images (4).webp"/>
+</div>
+<div class="bc-content">
+<div>
+<div class="bc-meta">
+<span>MAY 05, 2026</span>
+<span>•</span>
+<span>6 MIN READ</span>
+</div>
+<h3 class="bc-title">Historic Restorations: Strength vs Heritage Aesthetics</h3>
+<p class="bc-desc">Balancing crucial municipal safety code reinforcement requirements with sensitive structural architectural conservation.</p>
+</div>
+<div class="bc-footer">
+<div class="bc-author">
+<img alt="Author" class="bc-author-img" src="image/images.webp"/>
+<span class="bc-author-name">David Curtis</span>
+</div>
+<a class="bc-read-more" href="404.html">Read <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+</div>
+</div>
+</div>
+<!-- Post 4 (Innovation) -->
+<div class="blog-card gs-fade-up" data-category="innovation">
+<div class="bc-img-wrap">
+<span class="bc-category">Innovation</span>
+<img alt="Seismic Engineering" src="image/images.webp"/>
+</div>
+<div class="bc-content">
+<div>
+<div class="bc-meta">
+<span>APRIL 28, 2026</span>
+<span>•</span>
+<span>7 MIN READ</span>
+</div>
+<h3 class="bc-title">Seismic Structural Upgrades in Active Earthquake Zones</h3>
+<p class="bc-desc">A deep dive into dampers, fluid viscous shock components, and retrofitting older masonry foundations for fault-line stresses.</p>
+</div>
+<div class="bc-footer">
+<div class="bc-author">
+<img alt="Author" class="bc-author-img" src="image/images (3).webp"/>
+<span class="bc-author-name">Marcus Finch</span>
+</div>
+<a class="bc-read-more" href="404.html">Read <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+</div>
+</div>
+</div>
+<!-- Post 5 (Materials) -->
+<div class="blog-card gs-fade-up" data-category="materials" style="transition-delay: 0.1s">
+<div class="bc-img-wrap">
+<span class="bc-category">Materials</span>
+<img alt="Thermal Concrete Study" src="image/images (1).webp"/>
+</div>
+<div class="bc-content">
+<div>
+<div class="bc-meta">
+<span>APRIL 14, 2026</span>
+<span>•</span>
+<span>5 MIN READ</span>
+</div>
+<h3 class="bc-title">Concrete Curing Stresses: A Thermal Imaging Study</h3>
+<p class="bc-desc">Analyzing internal core temperatures in massive commercial block foundations to prevent micro-fracturing and structural cracking.</p>
+</div>
+<div class="bc-footer">
+<div class="bc-author">
+<img alt="Author" class="bc-author-img" src="image/images (4).webp"/>
+<span class="bc-author-name">Sarah Vance</span>
+</div>
+<a class="bc-read-more" href="404.html">Read <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+</div>
+</div>
+</div>
+<!-- Post 6 (Safety) -->
+<div class="blog-card gs-fade-up" data-category="safety" style="transition-delay: 0.2s">
+<div class="bc-img-wrap">
+<span class="bc-category">Safety</span>
+<img alt="OSHA compliance" src="image/images (2).webp"/>
+</div>
+<div class="bc-content">
+<div>
+<div class="bc-meta">
+<span>MARCH 30, 2026</span>
+<span>•</span>
+<span>9 MIN READ</span>
+</div>
+<h3 class="bc-title">OSHA Site Compliance: Essential Structural Safety Protocols</h3>
+<p class="bc-desc">A complete regulatory checklist for managing cranes, electrical isolations, and harness systems on complex sky-rise scaffolding.</p>
+</div>
+<div class="bc-footer">
+<div class="bc-author">
+<img alt="Author" class="bc-author-img" src="image/images.webp"/>
+<span class="bc-author-name">David Curtis</span>
+</div>
+<a class="bc-read-more" href="404.html">Read <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar (30%) -->
+<aside class="blog-sidebar">
+<!-- Widget 1: Search -->
+<div class="sidebar-widget gs-fade-up">
+<h4 class="widget-title">Search Journal</h4>
+<form class="search-form" id="search-journal-form" action="#" style="width: 100%;">
+    <div class="search-box">
+        <input id="search-input" placeholder="Search articles..." type="text"/>
+        <button type="submit" class="search-submit-btn" style="position: absolute; right: 1rem; background: none; border: none; outline: none; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; height: 100%;">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" style="position: static; width: 20px; height: 20px; color: #888;"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+        </button>
     </div>
-
-    <!-- BLOG HERO -->
-    <section class="blog-hero">
-        <div class="hero-bg" data-speed="0.8"></div>
-        <div class="hero-content">
-            <h1 class="hero-title" id="hero-title">JOURNAL</h1>
-            <p class="hero-subtitle">INSIGHTS ON URBAN DEVELOPMENT & SAFETY</p>
-        </div>
-    </section>
-
-    <!-- BLOG FEED SECTION -->
-    <section class="blog-section section-padding">
-        <div class="container">
-            <!-- Filter Tabs -->
-            <div class="blog-filters gs-fade-up">
-                <button class="filter-btn active" data-filter="all">All Journal</button>
-                <button class="filter-btn" data-filter="innovation">Innovation</button>
-                <button class="filter-btn" data-filter="materials">Materials</button>
-                <button class="filter-btn" data-filter="preservation">Preservation</button>
-                <button class="filter-btn" data-filter="safety">Safety</button>
-            </div>
-            
-            <!-- Featured Post -->
-            <div class="featured-post-container gs-fade-up">
-                <div class="featured-post">
-                    <div class="fp-img-wrap">
-                        <span class="bc-category" style="background:#ECAE3A;">Featured</span>
-                        <img src="image/images (1).webp" alt="Decarbonization Blueprint">
-                    </div>
-                    <div class="fp-content">
-                        <div class="bc-meta">
-                            <span>JUNE 01, 2026</span>
-                            <span>•</span>
-                            <span>8 MIN READ</span>
-                        </div>
-                        <h2 class="fp-title">The Blueprint of Decarbonization in Modern Sky-Scrapers</h2>
-                        <p class="fp-desc">An extensive structural breakdown of how modern engineering firms integrate carbon-offset concrete composites, active solar-capturing facades, and high-performance timber frames to achieve net-zero status.</p>
-                        <div class="bc-footer" style="border-top: none; padding-top: 0; margin-top: 2vw;">
-                            <div class="bc-author">
-                                <img src="image/images (3).webp" alt="Author" class="bc-author-img">
-                                <span class="bc-author-name">Marcus Finch</span>
-                            </div>
-                            <a href="404.html" class="bc-read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Two-Column Blog Grid & Sidebar Layout -->
-            <div class="blog-layout">
-                <!-- Main Feed (70%) -->
-                <div class="blog-main-col">
-                    <div class="blog-grid">
-                        <!-- Post 1 (Innovation) -->
-                        <div class="blog-card gs-fade-up" data-category="innovation">
-                            <div class="bc-img-wrap">
-                                <span class="bc-category">Innovation</span>
-                                <img src="image/images (2).webp" alt="BIM Scanning">
-                            </div>
-                            <div class="bc-content">
-                                <div>
-                                    <div class="bc-meta">
-                                        <span>MAY 26, 2026</span>
-                                        <span>•</span>
-                                        <span>5 MIN READ</span>
-                                    </div>
-                                    <h3 class="bc-title">The Future of Smart High-Rises: Concrete & BIM Tech</h3>
-                                    <p class="bc-desc">Explore how architectural Virtual BIM simulations map structural load stress offsets before concrete foundation pouring.</p>
-                                </div>
-                                <div class="bc-footer">
-                                    <div class="bc-author">
-                                        <img src="image/images (3).webp" alt="Author" class="bc-author-img">
-                                        <span class="bc-author-name">Marcus Finch</span>
-                                    </div>
-                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Post 2 (Materials) -->
-                        <div class="blog-card gs-fade-up" data-category="materials" style="transition-delay: 0.1s">
-                            <div class="bc-img-wrap">
-                                <span class="bc-category">Materials</span>
-                                <img src="image/images (3).webp" alt="Green Steel">
-                            </div>
-                            <div class="bc-content">
-                                <div>
-                                    <div class="bc-meta">
-                                        <span>MAY 18, 2026</span>
-                                        <span>•</span>
-                                        <span>4 MIN READ</span>
-                                    </div>
-                                    <h3 class="bc-title">Eco-Certified Materials: Carbon Offsets in Foundations</h3>
-                                    <p class="bc-desc">How incorporating recycled metal insulations and eco-concrete formulations significantly reduces heavy building impact footprints.</p>
-                                </div>
-                                <div class="bc-footer">
-                                    <div class="bc-author">
-                                        <img src="image/images (4).webp" alt="Author" class="bc-author-img">
-                                        <span class="bc-author-name">Sarah Vance</span>
-                                    </div>
-                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Post 3 (Preservation) -->
-                        <div class="blog-card gs-fade-up" data-category="preservation" style="transition-delay: 0.2s">
-                            <div class="bc-img-wrap">
-                                <span class="bc-category">Preservation</span>
-                                <img src="image/images (4).webp" alt="Historical Renovation">
-                            </div>
-                            <div class="bc-content">
-                                <div>
-                                    <div class="bc-meta">
-                                        <span>MAY 05, 2026</span>
-                                        <span>•</span>
-                                        <span>6 MIN READ</span>
-                                    </div>
-                                    <h3 class="bc-title">Historic Restorations: Strength vs Heritage Aesthetics</h3>
-                                    <p class="bc-desc">Balancing crucial municipal safety code reinforcement requirements with sensitive structural architectural conservation.</p>
-                                </div>
-                                <div class="bc-footer">
-                                    <div class="bc-author">
-                                        <img src="image/images.webp" alt="Author" class="bc-author-img">
-                                        <span class="bc-author-name">David Curtis</span>
-                                    </div>
-                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Post 4 (Innovation) -->
-                        <div class="blog-card gs-fade-up" data-category="innovation">
-                            <div class="bc-img-wrap">
-                                <span class="bc-category">Innovation</span>
-                                <img src="image/images.webp" alt="Seismic Engineering">
-                            </div>
-                            <div class="bc-content">
-                                <div>
-                                    <div class="bc-meta">
-                                        <span>APRIL 28, 2026</span>
-                                        <span>•</span>
-                                        <span>7 MIN READ</span>
-                                    </div>
-                                    <h3 class="bc-title">Seismic Structural Upgrades in Active Earthquake Zones</h3>
-                                    <p class="bc-desc">A deep dive into dampers, fluid viscous shock components, and retrofitting older masonry foundations for fault-line stresses.</p>
-                                </div>
-                                <div class="bc-footer">
-                                    <div class="bc-author">
-                                        <img src="image/images (3).webp" alt="Author" class="bc-author-img">
-                                        <span class="bc-author-name">Marcus Finch</span>
-                                    </div>
-                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Post 5 (Materials) -->
-                        <div class="blog-card gs-fade-up" data-category="materials" style="transition-delay: 0.1s">
-                            <div class="bc-img-wrap">
-                                <span class="bc-category">Materials</span>
-                                <img src="image/images (1).webp" alt="Thermal Concrete Study">
-                            </div>
-                            <div class="bc-content">
-                                <div>
-                                    <div class="bc-meta">
-                                        <span>APRIL 14, 2026</span>
-                                        <span>•</span>
-                                        <span>5 MIN READ</span>
-                                    </div>
-                                    <h3 class="bc-title">Concrete Curing Stresses: A Thermal Imaging Study</h3>
-                                    <p class="bc-desc">Analyzing internal core temperatures in massive commercial block foundations to prevent micro-fracturing and structural cracking.</p>
-                                </div>
-                                <div class="bc-footer">
-                                    <div class="bc-author">
-                                        <img src="image/images (4).webp" alt="Author" class="bc-author-img">
-                                        <span class="bc-author-name">Sarah Vance</span>
-                                    </div>
-                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Post 6 (Safety) -->
-                        <div class="blog-card gs-fade-up" data-category="safety" style="transition-delay: 0.2s">
-                            <div class="bc-img-wrap">
-                                <span class="bc-category">Safety</span>
-                                <img src="image/images (2).webp" alt="OSHA compliance">
-                            </div>
-                            <div class="bc-content">
-                                <div>
-                                    <div class="bc-meta">
-                                        <span>MARCH 30, 2026</span>
-                                        <span>•</span>
-                                        <span>9 MIN READ</span>
-                                    </div>
-                                    <h3 class="bc-title">OSHA Site Compliance: Essential Structural Safety Protocols</h3>
-                                    <p class="bc-desc">A complete regulatory checklist for managing cranes, electrical isolations, and harness systems on complex sky-rise scaffolding.</p>
-                                </div>
-                                <div class="bc-footer">
-                                    <div class="bc-author">
-                                        <img src="image/images.webp" alt="Author" class="bc-author-img">
-                                        <span class="bc-author-name">David Curtis</span>
-                                    </div>
-                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar (30%) -->
-                <aside class="blog-sidebar">
-                    <!-- Widget 1: Search -->
-                    <div class="sidebar-widget gs-fade-up">
-                        <h4 class="widget-title">Search Journal</h4>
-                        <div class="search-box">
-                            <input type="text" placeholder="Search articles...">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        </div>
-                    </div>
-                    
-                    <!-- Widget 2: Popular Tags -->
-                    <div class="sidebar-widget gs-fade-up">
-                        <h4 class="widget-title">Popular Tags</h4>
-                        <div class="tags-cloud">
-                            <a href="404.html" class="tag-link">BIM Tech</a>
-                            <a href="404.html" class="tag-link">Green Steel</a>
-                            <a href="404.html" class="tag-link">Safety First</a>
-                            <a href="404.html" class="tag-link">Zoning Codes</a>
-                            <a href="404.html" class="tag-link">Eco Concrete</a>
-                            <a href="404.html" class="tag-link">Heritage</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Widget 3: Recent Reads -->
-                    <div class="sidebar-widget gs-fade-up">
-                        <h4 class="widget-title">Recent Reads</h4>
-                        <div class="recent-reads">
-                            <div class="rr-item">
-                                <img src="image/images (1).webp" alt="Thumb">
-                                <div class="rr-info">
-                                    <h5>Thermal Imaging in Curing Stresses</h5>
-                                    <span>May 24, 2026</span>
-                                </div>
-                            </div>
-                            <div class="rr-item">
-                                <img src="image/images (2).webp" alt="Thumb">
-                                <div class="rr-info">
-                                    <h5>Seismic Structural Innovations</h5>
-                                    <span>May 15, 2026</span>
-                                </div>
-                            </div>
-                            <div class="rr-item">
-                                <img src="image/images (3).webp" alt="Thumb">
-                                <div class="rr-info">
-                                    <h5>OSHA compliance checklists</h5>
-                                    <span>May 02, 2026</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEWSLETTER SUBSCRIPTION SECTION -->
-    <section class="newsletter-section section-padding">
-        <div class="newsletter-box gs-fade-up">
-            <h2>STAY AHEAD OF GREEN BUILD ARCHITECTURE</h2>
-            <p>Subscribe to our quarterly engineering digest to receive architectural forecasts, municipal safety updates, and detailed sustainability strategies.</p>
-            <form class="newsletter-form" action="#">
-                <input type="email" placeholder="Your corporate email address" required>
-                <button type="submit" class="newsletter-btn">Subscribe</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="foot-top">
-            <div class="foot-cta">
-                <div class="logo" style="margin-bottom: 2vw;"><img src="whitelogo.webp" alt="BILDIUM Logo" style="height: 48px; width: auto;"></div>
-                <h2>YOUR VISION, OUR EXPERTISE – GET A FREE ESTIMATE</h2>
-                <a href="404.html" class="foot-btn">CALL NOW</a>
-                <p style="margin-top: 2vw; font-size: 0.9rem;">Contact us - (888) 456 7890</p>
-            </div>
-            <div class="foot-links-wrap">
-                <div class="foot-col" style="margin-right: 5vw;">
-                    <p style="margin-bottom: 1.5vw; max-width: 200px;">410 Sandtown, California 94001, USA</p>
-                    <p>info@example.com</p>
-                </div>
-                <div class="foot-col">
-                    <h5>QUICK LINKS</h5>
-                    <div class="footer-icons">
-                        <a href="404.html" class="icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                            <span class="icon-tooltip">Home</span>
-                        </a>
-                        <a href="404.html" class="icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                            <span class="icon-tooltip">About Us</span>
-                        </a>
-                        <a href="404.html" class="icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                            <span class="icon-tooltip">Services</span>
-                        </a>
-                        <a href="404.html" class="icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            <span class="icon-tooltip">Team</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="foot-col">
-                    <h5>SOCIAL MEDIA</h5>
-                    <div class="footer-icons">
-                        <a href="404.html" class="icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.81l.39-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                            <span class="icon-tooltip">Facebook</span>
-                        </a>
-                        <a href="404.html" class="icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                            <span class="icon-tooltip">Instagram</span>
-                        </a>
-                        <a href="404.html" class="icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16m0-16L4 20"/></svg>
-                            <span class="icon-tooltip">X (Twitter)</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="foot-bottom-text">
-            <div class="footer-marquee-track">
-                <div class="giant-text">CRAFTING STRONG FOUNDATIONS • CRAFTING STRONG FOUNDATIONS • </div>
-                <div class="giant-text">CRAFTING STRONG FOUNDATIONS • CRAFTING STRONG FOUNDATIONS • </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- GSAP & Lenis Scripts -->
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <script>
+</form>
+</div>
+<!-- Widget 2: Popular Tags -->
+<div class="sidebar-widget gs-fade-up">
+<h4 class="widget-title">Popular Tags</h4>
+<div class="tags-cloud">
+<a class="tag-link" href="404.html">BIM Tech</a>
+<a class="tag-link" href="404.html">Green Steel</a>
+<a class="tag-link" href="404.html">Safety First</a>
+<a class="tag-link" href="404.html">Zoning Codes</a>
+<a class="tag-link" href="404.html">Eco Concrete</a>
+<a class="tag-link" href="404.html">Heritage</a>
+</div>
+</div>
+<!-- Widget 3: Recent Reads -->
+<div class="sidebar-widget gs-fade-up">
+<h4 class="widget-title">Recent Reads</h4>
+<div class="recent-reads">
+<div class="rr-item">
+<img alt="Thumb" src="image/images (1).webp"/>
+<div class="rr-info">
+<h5>Thermal Imaging in Curing Stresses</h5>
+<span>May 24, 2026</span>
+</div>
+</div>
+<div class="rr-item">
+<img alt="Thumb" src="image/images (2).webp"/>
+<div class="rr-info">
+<h5>Seismic Structural Innovations</h5>
+<span>May 15, 2026</span>
+</div>
+</div>
+<div class="rr-item">
+<img alt="Thumb" src="image/images (3).webp"/>
+<div class="rr-info">
+<h5>OSHA compliance checklists</h5>
+<span>May 02, 2026</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</section>
+<!-- NEWSLETTER SUBSCRIPTION SECTION -->
+<section class="newsletter-section section-padding">
+<div class="newsletter-box gs-fade-up">
+<h2>STAY AHEAD OF GREEN BUILD ARCHITECTURE</h2>
+<p>Subscribe to our quarterly engineering digest to receive architectural forecasts, municipal safety updates, and detailed sustainability strategies.</p>
+<form action="#" class="newsletter-form">
+<input placeholder="Your corporate email address" required="" type="email"/>
+<button class="newsletter-btn" type="submit">Subscribe</button>
+</form>
+</div>
+</section>
+<!-- FOOTER -->
+<footer>
+<div class="foot-top">
+<div class="foot-cta">
+<a href="index.html" class="logo" style="margin-bottom: 2vw; display: block; cursor: pointer;"><img alt="BILDIUM Logo" src="whitelogo.webp" style="height: 48px; width: auto;"/></a>
+<h2>YOUR VISION, OUR EXPERTISE – GET A FREE ESTIMATE</h2>
+<a class="foot-btn" href="404.html">CALL NOW</a>
+<p style="margin-top: 2vw; font-size: 0.9rem;">Contact us - (888) 456 7890</p>
+</div>
+<div class="foot-links-wrap">
+<div class="foot-col" style="margin-right: 5vw;">
+<p style="margin-bottom: 1.5vw; max-width: 200px;">410 Sandtown, California 94001, USA</p>
+<p>info@example.com</p>
+</div>
+<div class="foot-col">
+<h5>QUICK LINKS</h5>
+<div class="footer-icons">
+<a class="icon-wrapper" href="index.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+<span class="icon-tooltip">Home</span>
+</a>
+<a class="icon-wrapper" href="404.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line></svg>
+<span class="icon-tooltip">About Us</span>
+</a>
+<a class="icon-wrapper" href="services.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+<span class="icon-tooltip">Services</span>
+</a>
+<a class="icon-wrapper" href="404.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+<span class="icon-tooltip">Team</span>
+</a>
+</div>
+</div>
+<div class="foot-col">
+<h5>SOCIAL MEDIA</h5>
+<div class="footer-icons">
+<a class="icon-wrapper" href="404.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.81l.39-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+<span class="icon-tooltip">Facebook</span>
+</a>
+<a class="icon-wrapper" href="404.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+<span class="icon-tooltip">Instagram</span>
+</a>
+<a class="icon-wrapper" href="404.html">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4 4l16 16m0-16L4 20"></path></svg>
+<span class="icon-tooltip">X (Twitter)</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="foot-bottom-text">
+<div class="footer-marquee-track">
+<div class="giant-text">CRAFTING STRONG FOUNDATIONS • CRAFTING STRONG FOUNDATIONS • </div>
+<div class="giant-text">CRAFTING STRONG FOUNDATIONS • CRAFTING STRONG FOUNDATIONS • </div>
+</div>
+</div>
+</footer>
+<!-- Global Form Validation System -->
+<script src="validation.js"></script>
+<!-- GSAP & Lenis Scripts -->
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
         document.addEventListener("DOMContentLoaded", () => {
             gsap.registerPlugin(ScrollTrigger);
 

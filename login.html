@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Structural Grid Login | BILDIUM Construction</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Styled Assets -->
+<link href="auth-dashboard.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="auth-wrapper">
+<div class="auth-container">
+<div class="auth-header">
+<a class="auth-logo" href="index.html">
+<img alt="BILDIUM Logo" src="whitelogo.webp"/>
+</a>
+<h2>Grid Portal</h2>
+<p>Verify structural credentials to proceed to control workspace</p>
+</div>
+<!-- Role Selector Tabs -->
+<div class="role-tabs">
+<div class="role-tab active" data-role="user">User Login</div>
+<div class="role-tab" data-role="admin">Admin Login</div>
+</div>
+<form class="auth-form" id="login-form" novalidate="">
+<!-- Hidden role input mapped by script -->
+<input id="login-role" type="hidden" value="user"/>
+<div class="form-group">
+<label for="email">Credential Email</label>
+<input id="email" placeholder="mail@example.com" required="" type="email"/>
+<span class="error-text">Credential email is required.</span>
+</div>
+<div class="form-group">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<label for="password">Security Password</label>
+<a href="forgotpassword.html" style="font-size: 0.75rem; color: var(--accent); text-decoration: none; margin-bottom: 0.6rem;">Forgot?</a>
+</div>
+<input id="password" placeholder="••••••••" required="" type="password"/>
+<span class="error-text">Credential password is required.</span>
+</div>
+<button class="auth-btn" type="submit">Initialize Connection</button>
+</form>
+<div class="auth-footer">
+<span>New coordinator?</span>
+<a href="signup.html">Create Profile</a>
+</div>
+</div>
+</div>
+<!-- Core Logic Engine -->
+<script src="auth.js"></script>
+</body>
+</html>

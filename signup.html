@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Register Profile | BILDIUM Construction</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Styled Assets -->
+<link href="auth-dashboard.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="auth-wrapper">
+<div class="auth-container">
+<div class="auth-header">
+<a class="auth-logo" href="index.html">
+<img alt="BILDIUM Logo" src="whitelogo.webp"/>
+</a>
+<h2>Create Account</h2>
+<p>Register to unlock premium structural forecasting &amp; blueprints</p>
+</div>
+<form class="auth-form" id="signup-form" novalidate="">
+<div class="form-group">
+<label for="name">Full Name</label>
+<input id="name" placeholder="E.g., John Builder" required="" type="text"/>
+<span class="error-text">Name must be at least 3 characters.</span>
+</div>
+<div class="form-group">
+<label for="email">Email Address</label>
+<input id="email" placeholder="mail@example.com" required="" type="email"/>
+<span class="error-text">Please enter a valid email address.</span>
+</div>
+<div class="form-group">
+<label for="role">Account Type / Role</label>
+<select id="role" required="">
+<option disabled="" selected="" value="">Select structural access profile</option>
+<option value="user">User / Client Portal</option>
+<option value="admin">Administrator / Coordinator</option>
+</select>
+<span class="error-text">Please select a user role.</span>
+</div>
+<div class="form-group">
+<label for="password">Password</label>
+<input id="password" placeholder="••••••••" required="" type="password"/>
+<span class="error-text">Password must be at least 6 characters.</span>
+</div>
+<div class="form-group">
+<label for="confirm-password">Confirm Password</label>
+<input id="confirm-password" placeholder="••••••••" required="" type="password"/>
+<span class="error-text">Passwords must match.</span>
+</div>
+<button class="auth-btn" type="submit">Establish Profile</button>
+</form>
+<div class="auth-footer">
+<span>Already registered?</span>
+<a href="login.html">Log In</a>
+</div>
+</div>
+</div>
+<!-- Core Logic Engine -->
+<script src="auth.js"></script>
+</body>
+</html>
