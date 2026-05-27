@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bildium - Construction Services</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ================= VARIABLES & RESET ================= */
+        :root {
+            --bg-primary: #F4F3EE;
+            --bg-dark: #111111;
+            --text-dark: #1A1A1A;
+            --text-light: #FFFFFF;
+            --accent: #ECAE3A;
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --container-pad: 4vw;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); text-transform: uppercase; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* Utility Classes */
+        .container { padding: 0 var(--container-pad); }
+        .section-padding { padding: 8vw var(--container-pad); }
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .clip-text { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
+        .char { display: inline-block; }
+
+        /* ================= NAVBAR & MOBILE MENU ================= */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1.5vw var(--container-pad);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 100;
+            color: var(--text-light);
+            mix-blend-mode: difference;
+            transition: 0.3s;
+        }
+        .logo { font-family: var(--font-heading); font-weight: 700; font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem; position: relative; z-index: 101;}
+        .logo span { color: var(--accent); }
+        .desktop-nav { display: flex; align-items: center; gap: 5vw; }
+        .nav-links { display: flex; gap: 3vw; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; }
+        .nav-actions { display: flex; align-items: center; gap: 2vw; }
+        .btn-enquire {
+            background: var(--text-light); color: var(--text-dark);
+            padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 600; font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .btn-enquire:hover { background: var(--accent); }
+        
+        /* Hamburger toggles */
+        .menu-toggle { display: none; cursor: pointer; z-index: 101; position: relative; width: 32px; height: 20px; }
+        .hamburger span { display: block; position: absolute; height: 2px; width: 100%; background: var(--text-light); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); left: 0; border-radius: 2px; }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 9px; width: 70%; right: 0; left: auto; }
+        
+        .menu-toggle.is-active .hamburger span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+        .menu-toggle.is-active .hamburger span:nth-child(2) { top: 9px; width: 100%; transform: rotate(-45deg); }
+        
+        .mobile-menu {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(15, 15, 15, 0.98); 
+            z-index: 99;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            clip-path: circle(0px at calc(100% - 4vw - 16px) 3vw);
+            transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+        }
+        .mobile-menu.is-open { 
+            clip-path: circle(150% at calc(100% - 4vw - 16px) 3vw); 
+            pointer-events: all; 
+        }
+        
+        .mobile-nav-links { display: flex; flex-direction: column; gap: 2rem; text-align: center; font-size: 3rem; font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; }
+        .mobile-nav-links a { 
+            transform: translateY(40px); opacity: 0; color: rgba(255,255,255,0.7);
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s ease, color 0.3s;
+        }
+        .mobile-menu.is-open .mobile-nav-links a { transform: translateY(0); opacity: 1; }
+        .mobile-nav-links a:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav-links a:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-links a:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-nav-links a:nth-child(4) { transition-delay: 0.25s; }
+        .mobile-nav-links a:nth-child(5) { transition-delay: 0.3s; }
+        .mobile-nav-links a.mobile-login { transition-delay: 0.35s; }
+        
+        .mobile-nav-links a:hover { color: var(--accent); }
+        .mobile-login { margin-top: 2rem; display: inline-block; background: var(--text-light); color: var(--bg-dark) !important; padding: 1rem 3rem; border-radius: 50px; font-size: 1.2rem; font-family: var(--font-body); font-weight: 700; letter-spacing: 0.05em; border: 1px solid transparent; }
+        .mobile-login:hover { background: var(--accent); color: #000 !important; }
+
+        /* ================= SERVICES HERO ================= */
+        .services-hero {
+            height: 60vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #000;
+            text-align: center;
+        }
+        .hero-bg {
+            position: absolute; top: -10%; left: -10%; width: 120%; height: 120%;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('image/pexels-bnwtake0405-12619009.webp') center/cover;
+            opacity: 0.8; z-index: 0;
+        }
+        .hero-content {
+            position: relative; z-index: 2; color: var(--text-light);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;
+            padding: 0 2vw;
+            margin-top: 8vh;
+        }
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 10rem); font-weight: 900; line-height: 1; letter-spacing: -0.02em;
+            color: rgba(255,255,255,0.95);
+        }
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 1.8vw, 1.8rem); max-width: 800px; margin-top: 1.5rem; font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ================= SERVICES GRID SECTION ================= */
+        .services-grid-section {
+            background: var(--bg-primary);
+        }
+        .services-intro {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 5vw;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 3vw;
+        }
+        .services-intro h2 {
+            font-size: 3.5vw;
+            width: 50%;
+            line-height: 1.1;
+        }
+        .services-intro p {
+            width: 40%;
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5vw;
+        }
+        .service-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 3vw 2.5vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 480px;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 0;
+            background: var(--bg-dark);
+            z-index: 1;
+            transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+        }
+        .service-card:hover::after {
+            height: 100%;
+        }
+        .sc-top, .sc-bottom {
+            position: relative;
+            z-index: 2;
+            transition: color 0.5s ease;
+        }
+        .service-card:hover .sc-top, 
+        .service-card:hover .sc-bottom {
+            color: var(--text-light);
+        }
+        .sc-icon {
+            margin-bottom: 2vw;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(236, 174, 58, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            transition: transform 0.5s ease, background-color 0.5s ease;
+        }
+        .service-card:hover .sc-icon {
+            background: rgba(255,255,255,0.1);
+            transform: rotateY(360deg);
+        }
+        .sc-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: currentColor;
+        }
+        .sc-title {
+            font-size: 1.8vw;
+            font-weight: 700;
+            margin-bottom: 1vw;
+            line-height: 1.2;
+        }
+        .sc-desc {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            transition: color 0.5s ease;
+        }
+        .service-card:hover .sc-desc {
+            color: rgba(255,255,255,0.8);
+        }
+        .sc-link {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dark);
+            transition: color 0.5s ease;
+        }
+        .service-card:hover .sc-link {
+            color: var(--accent);
+        }
+        .sc-link svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+            stroke: currentColor;
+        }
+        .service-card:hover .sc-link svg {
+            transform: translateX(5px);
+        }
+
+        /* ================= TIMELINE PROCESS SECTION ================= */
+        .process-section {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+        .process-header {
+            margin-bottom: 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 3vw;
+        }
+        .process-header h2 {
+            font-size: 3.5vw;
+            width: 50%;
+            line-height: 1.1;
+        }
+        .process-header p {
+            width: 40%;
+            font-size: 1.1rem;
+            color: #aaa;
+            line-height: 1.6;
+        }
+        .process-timeline {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            gap: 2vw;
+            margin-top: 4vw;
+        }
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            top: 40px; left: 0; width: 100%; height: 2px;
+            background: rgba(255,255,255,0.1);
+            z-index: 1;
+        }
+        .timeline-step {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #222;
+            border: 2px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 2vw;
+            transition: all 0.5s ease;
+        }
+        .timeline-step:hover .step-number {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            transform: scale(1.1);
+        }
+        .step-title {
+            font-size: 1.4vw;
+            font-weight: 700;
+            margin-bottom: 1vw;
+        }
+        .step-desc {
+            font-size: 0.9rem;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* ================= FAQ SECTION ================= */
+        .faq-section {
+            background: var(--bg-primary);
+        }
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        .faq-item {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 2vw 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+        .faq-item:hover .faq-question h3 {
+            color: var(--accent);
+        }
+        .faq-icon {
+            font-size: 1.5rem;
+            font-weight: 500;
+            transition: transform 0.4s ease;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+            color: var(--accent);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .faq-answer p {
+            padding-top: 1.5vw;
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* ================= CORE CAPABILITIES SECTION ================= */
+        .capabilities-section {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+        .caps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3vw;
+            margin-top: 4vw;
+        }
+        .cap-card {
+            background: #181818;
+            padding: 3vw 2.5vw;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .cap-card:hover {
+            background: #222;
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        .cap-card h3 {
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-bottom: 1vw;
+            font-weight: 700;
+        }
+        .cap-card p {
+            font-size: 0.95rem;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* ================= PROJECT ENQUIRY FORM SECTION ================= */
+        .enquiry-section {
+            background: var(--bg-primary);
+            display: flex;
+            gap: 5vw;
+            align-items: stretch;
+        }
+        .enquiry-left {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .enquiry-left h2 {
+            font-size: 3.5vw;
+            line-height: 1.1;
+            margin-bottom: 2vw;
+        }
+        .enquiry-left p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 3vw;
+        }
+        .enquiry-contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .eci-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .eci-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+            color: var(--accent);
+        }
+        .eci-text h4 {
+            font-size: 0.8rem;
+            color: #888;
+            letter-spacing: 0.05em;
+        }
+        .eci-text p {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0;
+        }
+
+        .enquiry-right {
+            width: 55%;
+            background: #FFFFFF;
+            padding: 5vw;
+            border-radius: 8px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.03);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #888;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            padding: 1rem;
+            background: #F8F7F4;
+            border: 1px solid transparent;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            background: #FFFFFF;
+            border-color: var(--accent);
+            box-shadow: 0 5px 15px rgba(236,174,58,0.08);
+        }
+        .form-group textarea {
+            resize: none;
+            height: 120px;
+        }
+        .btn-submit {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .btn-submit:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        /* ================= FOOTER ================= */
+        footer { background: var(--bg-dark); color: var(--text-light); padding-top: 5vw; position: relative; overflow: hidden; }
+        .foot-top { display: flex; justify-content: space-between; padding: 0 var(--container-pad) 3vw; }
+        .foot-cta { width: 40%; }
+        .foot-cta h2 { font-size: 2.5vw; margin-bottom: 2vw; line-height: 1.2; }
+        .foot-btn { background: var(--accent); color: #fff; padding: 1vw 2vw; display: inline-block; font-weight: 600; border-radius: 4px; }
+        .foot-col h5 { font-size: 1rem; margin-bottom: 1.5vw; color: #888; font-weight: 700; letter-spacing: 0.05em; }
+        
+        .footer-icons { display: flex; gap: 1vw; flex-wrap: wrap; }
+        .icon-wrapper { position: relative; width: 3vw; height: 3vw; min-width: 45px; min-height: 45px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: #fff; }
+        .icon-wrapper:hover { background: var(--accent); border-color: var(--accent); color: var(--text-dark); transform: translateY(-5px) scale(1.1); }
+        .icon-wrapper svg { width: 20px; height: 20px; transition: 0.3s; }
+        .icon-tooltip { position: absolute; top: -45px; background: var(--text-light); color: var(--text-dark); padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; opacity: 0; transform: translateY(10px) scale(0.9); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-family: var(--font-body); }
+        .icon-wrapper:hover .icon-tooltip { opacity: 1; transform: translateY(0) scale(1); }
+        .icon-tooltip::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); border-width: 5px 5px 0; border-style: solid; border-color: var(--text-light) transparent transparent transparent; }
+
+        .foot-bottom-text { width: 100%; overflow: hidden; padding-top: 1.5vw; display: flex; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 1vw; }
+        .footer-marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+        .giant-text { font-size: 12vw; font-family: var(--font-heading); font-weight: 900; white-space: nowrap; color: var(--text-light); opacity: 0.9; line-height: 1; padding-right: 3vw; }
+
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 1024px) {
+            .services-intro, .process-header, .enquiry-section { flex-direction: column; align-items: flex-start; gap: 4vw; }
+            .services-intro h2, .services-intro p, .process-header h2, .process-header p, .enquiry-left, .enquiry-right { width: 100%; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .service-card { height: 420px; }
+            .sc-title { font-size: 2.5vw; }
+            .process-timeline { flex-direction: column; gap: 5vw; margin-top: 8vw; }
+            .process-timeline::before { display: none; }
+            .step-title { font-size: 3vw; }
+            .faq-question h3 { font-size: 1.1rem; }
+            .caps-grid { grid-template-columns: 1fr; }
+            .foot-top { flex-direction: column; gap: 4vw; }
+            .foot-cta { width: 100%; }
+        }
+        @media (max-width: 768px) {
+            .desktop-nav { display: none !important; }
+            .menu-toggle { display: block; }
+            nav { padding: 4vw var(--container-pad); mix-blend-mode: normal; }
+            .services-grid { grid-template-columns: 1fr; }
+            .sc-title { font-size: 5vw; }
+            .step-title { font-size: 5vw; }
+            .giant-text { font-size: 15vw; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="logo">
+            <img src="whitelogo.webp" alt="BILDIUM Logo" style="height: 32px; width: auto;">
+        </div>
+        <div class="desktop-nav">
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="blog.html">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="404.html" class="btn-enquire">LOGIN</a>
+            </div>
+        </div>
+        <!-- Premium Hamburger -->
+        <div class="menu-toggle" id="mobile-menu-btn">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="blog.html">Blog</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="404.html" class="mobile-login">LOGIN</a>
+        </div>
+    </div>
+
+    <!-- SERVICES HERO -->
+    <section class="services-hero">
+        <div class="hero-bg" data-speed="0.8"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" id="hero-title">SERVICES</h1>
+            <p class="hero-subtitle">WHAT WE BUILD FOR THE FUTURE</p>
+        </div>
+    </section>
+
+    <!-- SERVICES GRID SECTION -->
+    <section class="services-grid-section section-padding">
+        <div class="services-intro">
+            <h2 class="gs-text-reveal">WE DO ALL TYPE OF CONSTRUCTIONS & REPAIRS</h2>
+            <p class="gs-fade-up">With over 18 years of experience, we provide high-grade custom planning, architectural rendering, smart structural works, and pristine internal finishing.</p>
+        </div>
+        
+        <div class="services-grid">
+            <!-- Service 1 -->
+            <div class="service-card gs-fade-up">
+                <div class="sc-top">
+                    <div class="sc-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <h3 class="sc-title">Commercial Build</h3>
+                    <p class="sc-desc">State-of-the-art office spaces, retail outlets, shopping centers, and massive warehouses built with precise structural integrity.</p>
+                </div>
+                <div class="sc-bottom">
+                    <a href="404.html" class="sc-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </div>
+            </div>
+            
+            <!-- Service 2 -->
+            <div class="service-card gs-fade-up" style="transition-delay: 0.1s">
+                <div class="sc-top">
+                    <div class="sc-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M2 22h20M12 2v20M5 12h14M5 7h14M5 17h14"/></svg>
+                    </div>
+                    <h3 class="sc-title">Framing & Metalwork</h3>
+                    <p class="sc-desc">Heavy industrial wood and steel framing designed to handle high loads, seismic pressures, and historical reconstruction projects.</p>
+                </div>
+                <div class="sc-bottom">
+                    <a href="404.html" class="sc-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </div>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="service-card gs-fade-up" style="transition-delay: 0.2s">
+                <div class="sc-top">
+                    <div class="sc-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3 class="sc-title">Historic Renovation</h3>
+                    <p class="sc-desc">Restoring structures to their former glory while introducing modern electrical, plumbing, and structural enhancements discreetly.</p>
+                </div>
+                <div class="sc-bottom">
+                    <a href="404.html" class="sc-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </div>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="service-card gs-fade-up">
+                <div class="sc-top">
+                    <div class="sc-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    </div>
+                    <h3 class="sc-title">Waterproofing & Insulation</h3>
+                    <p class="sc-desc">Ensuring your spaces are highly resilient to moisture, wind, thermal expansion, and heat loss with advanced green materials.</p>
+                </div>
+                <div class="sc-bottom">
+                    <a href="404.html" class="sc-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </div>
+            </div>
+
+            <!-- Service 5 -->
+            <div class="service-card gs-fade-up" style="transition-delay: 0.1s">
+                <div class="sc-top">
+                    <div class="sc-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    </div>
+                    <h3 class="sc-title">Plumbing & Systems</h3>
+                    <p class="sc-desc">Designing, installing, and restoring commercial and heavy industrial HVAC, water supply, gas networks, and drainage systems.</p>
+                </div>
+                <div class="sc-bottom">
+                    <a href="404.html" class="sc-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </div>
+            </div>
+
+            <!-- Service 6 -->
+            <div class="service-card gs-fade-up" style="transition-delay: 0.2s">
+                <div class="sc-top">
+                    <div class="sc-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <h3 class="sc-title">Interior Remodeling</h3>
+                    <p class="sc-desc">High-end flooring, modular ceilings, modern insulation partition walls, and custom fit-outs aligned to state-of-the-art designs.</p>
+                </div>
+                <div class="sc-bottom">
+                    <a href="404.html" class="sc-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE PROCESS SECTION -->
+    <section class="process-section section-padding">
+        <div class="process-header">
+            <h2 class="gs-text-reveal">OUR WORKING WORKFLOW</h2>
+            <p class="gs-fade-up">We map out your vision methodically to ensure absolute satisfaction from planning to the final handover.</p>
+        </div>
+
+        <div class="process-timeline">
+            <!-- Step 1 -->
+            <div class="timeline-step gs-fade-up">
+                <div class="step-number">01</div>
+                <h3 class="step-title">Initial Advisory</h3>
+                <p class="step-desc">Meeting to grasp your project requirements, space variables, parameters, constraints, and estimated budget goals.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="timeline-step gs-fade-up" style="transition-delay: 0.1s">
+                <div class="step-number">02</div>
+                <h3 class="step-title">Detailed Drafting</h3>
+                <p class="step-desc">Generating engineering blue-prints, architectural 3D designs, permits acquisition, and transparent raw material costing.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="timeline-step gs-fade-up" style="transition-delay: 0.2s">
+                <div class="step-number">03</div>
+                <h3 class="step-title">Master Construction</h3>
+                <p class="step-desc">Executing earthmoving, structural framing, concrete pouring, systems insulation, and custom internal work seamlessly.</p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="timeline-step gs-fade-up" style="transition-delay: 0.3s">
+                <div class="step-number">04</div>
+                <h3 class="step-title">Handover</h3>
+                <p class="step-desc">Completing aesthetic detailing, intense safety inspects, systems testing, structural validation, and key handover.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE CAPABILITIES SECTION -->
+    <section class="capabilities-section section-padding">
+        <div class="container">
+            <div class="process-header" style="border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 3vw;">
+                <h2 class="gs-text-reveal">WHY WORK WITH BILDIUM</h2>
+                <p class="gs-fade-up">We set benchmarks of safety, advanced spatial structural engineering, and complete budget transparency on every single build.</p>
+            </div>
+            
+            <div class="caps-grid">
+                <!-- Cap 1 -->
+                <div class="cap-card gs-fade-up">
+                    <h3>Virtual BIM Drafting</h3>
+                    <p>Real-time 3D blueprint projections and building model structural stresses testing before pouring any physical concrete foundation.</p>
+                </div>
+                <!-- Cap 2 -->
+                <div class="cap-card gs-fade-up" style="transition-delay: 0.1s">
+                    <h3>Eco-Certified Materials</h3>
+                    <p>Lowering project carbon footprints using high-strength green steel composites, recycled insulations, and energy-efficient systems.</p>
+                </div>
+                <!-- Cap 3 -->
+                <div class="cap-card gs-fade-up" style="transition-delay: 0.2s">
+                    <h3>Live Project Dash</h3>
+                    <p>Access your personalized portal detailing daily milestones tracking, raw material logistics checklists, and timelines updates.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ ACCORDION SECTION -->
+    <section class="faq-section section-padding">
+        <div class="container">
+            <div class="services-intro" style="margin-bottom: 4vw; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                <h2 class="gs-text-reveal">FREQUENTLY ASKED PLANS</h2>
+                <p class="gs-fade-up">Here are direct replies to common project structural, raw materials, permit processes, and custom development estimates.</p>
+            </div>
+            
+            <div class="faq-container gs-fade-up">
+                <!-- FAQ 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>WHAT REGIONS DO YOU CURRENTLY COVER?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We are fully active across California and western states, delivering heavy commercial constructs, premium residential expansions, and urban industrial restorations seamlessly.</p>
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>HOW IS THE ESTIMATE CALCULATED?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We combine digital BIM architectural scans with local vendor supply networks to forecast precise labor, steel/wood materials pricing, and safety offsets within 3% of final bills.</p>
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>ARE ALL WORKERS FULLY CERTIFIED?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. Every draftsman, structural welder, excavator crew member, and insulation technician holds active, audited OSHA safety certifications and full state-bond insurance coverage.</p>
+                    </div>
+                </div>
+                <!-- FAQ 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>DO YOU ACQUIRE DESIGN PERMITS?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we manage all municipality clearance checklists, zoning approvals, fire safety inspections, and architectural environmental impact permits to prevent any administrative delays.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECT ENQUIRY FORM SECTION -->
+    <section class="enquiry-section section-padding">
+        <div class="enquiry-left">
+            <h2 class="gs-text-reveal">HAVE A PLAN IN YOUR MIND?</h2>
+            <p class="gs-fade-up">Get in touch with our team of elite structural engineers, draftsmen, and decorators to obtain a detailed raw layout budget forecast free.</p>
+            
+            <div class="enquiry-contact-info gs-fade-up">
+                <div class="eci-item">
+                    <div class="eci-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <div class="eci-text">
+                        <h4>CALL ESTIMATOR</h4>
+                        <p>(888) 456 7890</p>
+                    </div>
+                </div>
+                <div class="eci-item">
+                    <div class="eci-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div class="eci-text">
+                        <h4>EMAIL</h4>
+                        <p>info@example.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="enquiry-right gs-fade-up">
+            <form action="#">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" required placeholder="E.g., John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" required placeholder="E.g., john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required placeholder="E.g., +1 234 567 8900">
+                    </div>
+                    <div class="form-group">
+                        <label for="service-type">Service Required</label>
+                        <select id="service-type">
+                            <option>Commercial Build</option>
+                            <option>Framing & Metalwork</option>
+                            <option>Historic Renovation</option>
+                            <option>Waterproofing & Insulation</option>
+                            <option>Plumbing & Systems</option>
+                            <option>Interior Remodeling</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="message">About Your Plan</label>
+                        <textarea id="message" placeholder="Briefly describe your size area, materials, structural preferences etc."></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Submit Enquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="foot-top">
+            <div class="foot-cta">
+                <div class="logo" style="margin-bottom: 2vw;"><img src="whitelogo.webp" alt="BILDIUM Logo" style="height: 48px; width: auto;"></div>
+                <h2>YOUR VISION, OUR EXPERTISE – GET A FREE ESTIMATE</h2>
+                <a href="404.html" class="foot-btn">CALL NOW</a>
+                <p style="margin-top: 2vw; font-size: 0.9rem;">Contact us - (888) 456 7890</p>
+            </div>
+            <div class="foot-links-wrap">
+                <div class="foot-col" style="margin-right: 5vw;">
+                    <p style="margin-bottom: 1.5vw; max-width: 200px;">410 Sandtown, California 94001, USA</p>
+                    <p>info@example.com</p>
+                </div>
+                <div class="foot-col">
+                    <h5>QUICK LINKS</h5>
+                    <div class="footer-icons">
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            <span class="icon-tooltip">Home</span>
+                        </a>
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                            <span class="icon-tooltip">About Us</span>
+                        </a>
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                            <span class="icon-tooltip">Services</span>
+                        </a>
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <span class="icon-tooltip">Team</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="foot-col">
+                    <h5>SOCIAL MEDIA</h5>
+                    <div class="footer-icons">
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.81l.39-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                            <span class="icon-tooltip">Facebook</span>
+                        </a>
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                            <span class="icon-tooltip">Instagram</span>
+                        </a>
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16m0-16L4 20"/></svg>
+                            <span class="icon-tooltip">X (Twitter)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot-bottom-text">
+            <div class="footer-marquee-track">
+                <div class="giant-text">CRAFTING STRONG FOUNDATIONS • CRAFTING STRONG FOUNDATIONS • </div>
+                <div class="giant-text">CRAFTING STRONG FOUNDATIONS • CRAFTING STRONG FOUNDATIONS • </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP & Lenis Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Smooth Scrolling (Lenis)
+            const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time)=>{ lenis.raf(time * 1000) });
+            gsap.ticker.lagSmoothing(0, 0);
+
+            // Mobile Menu Logic
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            let isMenuOpen = false;
+
+            menuBtn.addEventListener('click', () => {
+                isMenuOpen = !isMenuOpen;
+                if(isMenuOpen) {
+                    mobileMenu.classList.add('is-open');
+                    menuBtn.classList.add('is-active');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    mobileMenu.classList.remove('is-open');
+                    menuBtn.classList.remove('is-active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Navbar Scroll Effect
+            const nav = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 100) {
+                    nav.style.background = 'rgba(17, 17, 17, 0.95)';
+                    nav.style.backdropFilter = 'blur(10px)';
+                    nav.style.padding = '1vw 4vw';
+                } else {
+                    nav.style.background = 'transparent';
+                    nav.style.backdropFilter = 'none';
+                    nav.style.padding = '1.5vw 4vw';
+                }
+            });
+
+            // 3. Hero Initial Animation (Split Text)
+            const h1 = document.getElementById('hero-title');
+            const h1Text = h1.textContent;
+            h1.innerHTML = h1Text.split('').map(char => char.trim() === '' ? '&nbsp;' : `<span class="char">${char}</span>`).join('');
+            h1.classList.add('clip-text');
+
+            const tlHero = gsap.timeline();
+            tlHero.from("#hero-title .char", { yPercent: 110, duration: 1.2, ease: "power4.out", stagger: 0.08, delay: 0.2 })
+                  .from(".hero-subtitle", { y: 30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.8");
+
+            // Hero Parallax
+            gsap.to(".hero-bg", {
+                yPercent: 30, ease: "none",
+                scrollTrigger: { trigger: ".services-hero", start: "top top", end: "bottom top", scrub: true }
+            });
+            gsap.to(".hero-content", {
+                yPercent: 50, opacity: 0, ease: "none",
+                scrollTrigger: { trigger: ".services-hero", start: "top top", end: "bottom top", scrub: true }
+            });
+
+            // 4. Split Text Animations for all other Headings & Reveals
+            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, .gs-text-reveal');
+            headings.forEach(heading => {
+                if(heading.querySelector('.stat-counter') || heading.querySelector('svg') || heading.id === 'hero-title') return;
+
+                let newHTML = '';
+                const splitTextNode = (text) => {
+                    return text.split('').map(char => {
+                        if(char.trim() === '') return '&nbsp;';
+                        return `<span class="char" style="display:inline-block;">${char}</span>`;
+                    }).join('');
+                };
+
+                const nodes = Array.from(heading.childNodes);
+                nodes.forEach(node => {
+                    if (node.nodeType === 3) {
+                        newHTML += splitTextNode(node.textContent);
+                    } else if (node.nodeType === 1 && node.tagName === 'BR') {
+                        newHTML += '<br>';
+                    } else if (node.nodeType === 1 && node.tagName === 'SPAN') {
+                        newHTML += `<span class="${node.className}" style="${node.style.cssText}">${splitTextNode(node.textContent)}</span>`;
+                    } else {
+                        newHTML += node.outerHTML;
+                    }
+                });
+
+                heading.innerHTML = newHTML;
+                heading.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)';
+
+                gsap.from(heading.querySelectorAll('.char'), {
+                    scrollTrigger: {
+                        trigger: heading,
+                        start: "top 85%"
+                    },
+                    yPercent: 110,
+                    duration: 0.8,
+                    ease: "power4.out",
+                    stagger: 0.02
+                });
+            });
+
+            // FAQ Accordion Logic
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    faqItems.forEach(i => {
+                        i.classList.remove('active');
+                        i.querySelector('.faq-answer').style.maxHeight = null;
+                    });
+                    if (!isActive) {
+                        item.classList.add('active');
+                        const answer = item.querySelector('.faq-answer');
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // Fade Up Elements
+            gsap.utils.toArray('.gs-fade-up').forEach(elem => {
+                gsap.from(elem, {
+                    scrollTrigger: { trigger: elem, start: "top 90%" },
+                    y: 50, opacity: 0, duration: 1, ease: "power3.out"
+                });
+            });
+        });
+    </script>
+</body>
+</html>

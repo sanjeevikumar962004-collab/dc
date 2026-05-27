@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bildium - Engineering & Construction Blog</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ================= VARIABLES & RESET ================= */
+        :root {
+            --bg-primary: #F4F3EE;
+            --bg-dark: #111111;
+            --text-dark: #1A1A1A;
+            --text-light: #FFFFFF;
+            --accent: #ECAE3A;
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --container-pad: 4vw;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); text-transform: uppercase; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* Utility Classes */
+        .container { padding: 0 var(--container-pad); }
+        .section-padding { padding: 8vw var(--container-pad); }
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .clip-text { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
+        .char { display: inline-block; }
+
+        /* ================= NAVBAR & MOBILE MENU ================= */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1.5vw var(--container-pad);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 100;
+            color: var(--text-light);
+            mix-blend-mode: difference;
+            transition: 0.3s;
+        }
+        .logo { font-family: var(--font-heading); font-weight: 700; font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem; position: relative; z-index: 101;}
+        .logo span { color: var(--accent); }
+        .desktop-nav { display: flex; align-items: center; gap: 5vw; }
+        .nav-links { display: flex; gap: 3vw; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; }
+        .nav-actions { display: flex; align-items: center; gap: 2vw; }
+        .btn-enquire {
+            background: var(--text-light); color: var(--text-dark);
+            padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 600; font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .btn-enquire:hover { background: var(--accent); }
+        
+        /* Hamburger toggles */
+        .menu-toggle { display: none; cursor: pointer; z-index: 101; position: relative; width: 32px; height: 20px; }
+        .hamburger span { display: block; position: absolute; height: 2px; width: 100%; background: var(--text-light); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); left: 0; border-radius: 2px; }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 9px; width: 70%; right: 0; left: auto; }
+        
+        .menu-toggle.is-active .hamburger span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+        .menu-toggle.is-active .hamburger span:nth-child(2) { top: 9px; width: 100%; transform: rotate(-45deg); }
+        
+        .mobile-menu {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(15, 15, 15, 0.98); 
+            z-index: 99;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            clip-path: circle(0px at calc(100% - 4vw - 16px) 3vw);
+            transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+        }
+        .mobile-menu.is-open { 
+            clip-path: circle(150% at calc(100% - 4vw - 16px) 3vw); 
+            pointer-events: all; 
+        }
+        
+        .mobile-nav-links { display: flex; flex-direction: column; gap: 2rem; text-align: center; font-size: 3rem; font-family: var(--font-heading); font-weight: 800; text-transform: uppercase; }
+        .mobile-nav-links a { 
+            transform: translateY(40px); opacity: 0; color: rgba(255,255,255,0.7);
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.6s ease, color 0.3s;
+        }
+        .mobile-menu.is-open .mobile-nav-links a { transform: translateY(0); opacity: 1; }
+        .mobile-nav-links a:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav-links a:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-links a:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-nav-links a:nth-child(4) { transition-delay: 0.25s; }
+        .mobile-nav-links a:nth-child(5) { transition-delay: 0.3s; }
+        .mobile-nav-links a.mobile-login { transition-delay: 0.35s; }
+        
+        .mobile-nav-links a:hover { color: var(--accent); }
+        .mobile-login { margin-top: 2rem; display: inline-block; background: var(--text-light); color: var(--bg-dark) !important; padding: 1rem 3rem; border-radius: 50px; font-size: 1.2rem; font-family: var(--font-body); font-weight: 700; letter-spacing: 0.05em; border: 1px solid transparent; }
+        .mobile-login:hover { background: var(--accent); color: #000 !important; }
+
+        /* ================= BLOG HERO ================= */
+        .blog-hero {
+            height: 60vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #000;
+            text-align: center;
+        }
+        .hero-bg {
+            position: absolute; top: -10%; left: -10%; width: 120%; height: 120%;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('image/pexels-max-w-1673439416-34718517.webp') center/cover;
+            opacity: 0.8; z-index: 0;
+        }
+        .hero-content {
+            position: relative; z-index: 2; color: var(--text-light);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;
+            padding: 0 2vw;
+            margin-top: 8vh;
+        }
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 10rem); font-weight: 900; line-height: 1; letter-spacing: -0.02em;
+            color: rgba(255,255,255,0.95);
+        }
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 1.8vw, 1.8rem); max-width: 800px; margin-top: 1.5rem; font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ================= BLOG WRAPPER & CATEGORIES ================= */
+        .blog-section {
+            background: var(--bg-primary);
+        }
+        .blog-filters {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 4vw;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 2vw;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: none;
+            border: 1px solid rgba(0,0,0,0.15);
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            border-color: var(--bg-dark);
+        }
+
+        /* ================= FEATURED POST ================= */
+        .featured-post-container {
+            margin-bottom: 4vw;
+        }
+        .featured-post {
+            display: flex;
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+            height: 450px;
+        }
+        .fp-img-wrap {
+            width: 55%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .fp-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .featured-post:hover .fp-img-wrap img {
+            transform: scale(1.03);
+        }
+        .fp-content {
+            width: 45%;
+            padding: 3vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .fp-title {
+            font-size: 2.2vw;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5vw;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+        }
+        .featured-post:hover .fp-title {
+            color: var(--accent);
+        }
+        .fp-desc {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 2vw;
+        }
+
+        /* ================= BLOG LAYOUT & SIDEBAR ================= */
+        .blog-layout {
+            display: flex;
+            gap: 4vw;
+            align-items: flex-start;
+        }
+        .blog-main-col {
+            width: 70%;
+        }
+        .blog-sidebar {
+            width: 30%;
+            position: sticky;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 3vw;
+        }
+        .sidebar-widget {
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 2vw;
+        }
+        .widget-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Widget: Search */
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 1rem;
+            padding-right: 3rem;
+            background: #F8F7F4;
+            border: 1px solid transparent;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .search-box input:focus {
+            background: #FFFFFF;
+            border-color: var(--accent);
+        }
+        .search-box svg {
+            position: absolute;
+            right: 1rem;
+            width: 20px;
+            height: 20px;
+            color: #888;
+        }
+        
+        /* Widget: Tags */
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .tag-link {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #F8F7F4;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+        .tag-link:hover {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+        
+        /* Widget: Recent Reads */
+        .recent-reads {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .rr-item {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            cursor: pointer;
+        }
+        .rr-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .rr-info h5 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 0.3rem;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+        }
+        .rr-item:hover h5 {
+            color: var(--accent);
+        }
+        .rr-info span {
+            font-size: 0.75rem;
+            color: #888;
+            font-weight: 600;
+        }
+
+        /* ================= BLOG FEED GRID ================= */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5vw;
+        }
+        .blog-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+        }
+        .bc-img-wrap {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        .bc-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .blog-card:hover .bc-img-wrap img {
+            transform: scale(1.05);
+        }
+        .bc-category {
+            position: absolute;
+            top: 1rem; left: 1rem;
+            background: var(--accent);
+            color: var(--text-dark);
+            padding: 0.4rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 4px;
+            z-index: 2;
+        }
+        .bc-content {
+            padding: 2.5vw 2vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+        .bc-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 1.5vw;
+            font-weight: 600;
+        }
+        .bc-title {
+            font-size: 1.4vw;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 1vw;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+        }
+        .blog-card:hover .bc-title {
+            color: var(--accent);
+        }
+        .bc-desc {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 2vw;
+        }
+        .bc-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 1.5vw;
+            margin-top: auto;
+        }
+        .bc-author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .bc-author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .bc-author-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .bc-read-more {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.3s ease;
+        }
+        .blog-card:hover .bc-read-more {
+            color: var(--accent);
+        }
+        .bc-read-more svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+        .blog-card:hover .bc-read-more svg {
+            transform: translateX(4px);
+        }
+
+        /* ================= NEWSLETTER CONTAINER SECTION ================= */
+        .newsletter-section {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+        .newsletter-box {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 4vw 0;
+        }
+        .newsletter-box h2 {
+            font-size: 3.5vw;
+            line-height: 1.1;
+            margin-bottom: 1.5vw;
+        }
+        .newsletter-box p {
+            font-size: 1.1rem;
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto 3vw;
+            line-height: 1.6;
+        }
+        .newsletter-form {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            background: #1f1f1f;
+            padding: 6px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: border-color 0.3s ease;
+        }
+        .newsletter-form:focus-within {
+            border-color: var(--accent);
+        }
+        .newsletter-form input {
+            flex-grow: 1;
+            background: none;
+            border: none;
+            outline: none;
+            padding: 0 1.5rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+        .newsletter-form input::placeholder {
+            color: #666;
+        }
+        .newsletter-btn {
+            background: var(--accent);
+            color: var(--text-dark);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .newsletter-btn:hover {
+            background: var(--text-light);
+            color: var(--text-dark);
+        }
+
+        /* ================= FOOTER ================= */
+        footer { background: var(--bg-dark); color: var(--text-light); padding-top: 5vw; position: relative; overflow: hidden; }
+        .foot-top { display: flex; justify-content: space-between; padding: 0 var(--container-pad) 3vw; }
+        .foot-cta { width: 40%; }
+        .foot-cta h2 { font-size: 2.5vw; margin-bottom: 2vw; line-height: 1.2; }
+        .foot-btn { background: var(--accent); color: #fff; padding: 1vw 2vw; display: inline-block; font-weight: 600; border-radius: 4px; }
+        .foot-col h5 { font-size: 1rem; margin-bottom: 1.5vw; color: #888; font-weight: 700; letter-spacing: 0.05em; }
+        
+        .footer-icons { display: flex; gap: 1vw; flex-wrap: wrap; }
+        .icon-wrapper { position: relative; width: 3vw; height: 3vw; min-width: 45px; min-height: 45px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: #fff; }
+        .icon-wrapper:hover { background: var(--accent); border-color: var(--accent); color: var(--text-dark); transform: translateY(-5px) scale(1.1); }
+        .icon-wrapper svg { width: 20px; height: 20px; transition: 0.3s; }
+        .icon-tooltip { position: absolute; top: -45px; background: var(--text-light); color: var(--text-dark); padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; opacity: 0; transform: translateY(10px) scale(0.9); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-family: var(--font-body); }
+        .icon-wrapper:hover .icon-tooltip { opacity: 1; transform: translateY(0) scale(1); }
+        .icon-tooltip::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); border-width: 5px 5px 0; border-style: solid; border-color: var(--text-light) transparent transparent transparent; }
+
+        .foot-bottom-text { width: 100%; overflow: hidden; padding-top: 1.5vw; display: flex; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 1vw; }
+        .footer-marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+        .giant-text { font-size: 12vw; font-family: var(--font-heading); font-weight: 900; white-space: nowrap; color: var(--text-light); opacity: 0.9; line-height: 1; padding-right: 3vw; }
+
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 1024px) {
+            .blog-layout { flex-direction: column; }
+            .blog-main-col, .blog-sidebar { width: 100%; }
+            .blog-grid { grid-template-columns: repeat(2, 1fr); }
+            .featured-post { height: auto; flex-direction: column; }
+            .fp-img-wrap, .fp-content { width: 100%; }
+            .fp-title { font-size: 5vw; }
+            .bc-title { font-size: 2.5vw; }
+            .newsletter-box h2 { font-size: 5vw; }
+            .foot-top { flex-direction: column; gap: 4vw; }
+            .foot-cta { width: 100%; }
+        }
+        @media (max-width: 768px) {
+            .desktop-nav { display: none !important; }
+            .menu-toggle { display: block; }
+            nav { padding: 4vw var(--container-pad); mix-blend-mode: normal; }
+            .blog-grid { grid-template-columns: 1fr; }
+            .fp-title { font-size: 7vw; }
+            .bc-title { font-size: 5vw; }
+            .newsletter-box h2 { font-size: 7vw; }
+            .newsletter-form { border-radius: 8px; flex-direction: column; padding: 10px; background: none; gap: 10px; border: none; }
+            .newsletter-form input { background: #1f1f1f; padding: 1rem; border-radius: 4px; border: 1px solid transparent; }
+            .newsletter-form input:focus { border-color: var(--accent); }
+            .newsletter-btn { width: 100%; border-radius: 4px; }
+            .giant-text { font-size: 15vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="logo">
+            <img src="whitelogo.webp" alt="BILDIUM Logo" style="height: 32px; width: auto;">
+        </div>
+        <div class="desktop-nav">
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="blog.html">Blog</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="404.html" class="btn-enquire">LOGIN</a>
+            </div>
+        </div>
+        <!-- Premium Hamburger -->
+        <div class="menu-toggle" id="mobile-menu-btn">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="blog.html">Blog</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="404.html" class="mobile-login">LOGIN</a>
+        </div>
+    </div>
+
+    <!-- BLOG HERO -->
+    <section class="blog-hero">
+        <div class="hero-bg" data-speed="0.8"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" id="hero-title">JOURNAL</h1>
+            <p class="hero-subtitle">INSIGHTS ON URBAN DEVELOPMENT & SAFETY</p>
+        </div>
+    </section>
+
+    <!-- BLOG FEED SECTION -->
+    <section class="blog-section section-padding">
+        <div class="container">
+            <!-- Filter Tabs -->
+            <div class="blog-filters gs-fade-up">
+                <button class="filter-btn active" data-filter="all">All Journal</button>
+                <button class="filter-btn" data-filter="innovation">Innovation</button>
+                <button class="filter-btn" data-filter="materials">Materials</button>
+                <button class="filter-btn" data-filter="preservation">Preservation</button>
+                <button class="filter-btn" data-filter="safety">Safety</button>
+            </div>
+            
+            <!-- Featured Post -->
+            <div class="featured-post-container gs-fade-up">
+                <div class="featured-post">
+                    <div class="fp-img-wrap">
+                        <span class="bc-category" style="background:#ECAE3A;">Featured</span>
+                        <img src="image/images (1).webp" alt="Decarbonization Blueprint">
+                    </div>
+                    <div class="fp-content">
+                        <div class="bc-meta">
+                            <span>JUNE 01, 2026</span>
+                            <span>•</span>
+                            <span>8 MIN READ</span>
+                        </div>
+                        <h2 class="fp-title">The Blueprint of Decarbonization in Modern Sky-Scrapers</h2>
+                        <p class="fp-desc">An extensive structural breakdown of how modern engineering firms integrate carbon-offset concrete composites, active solar-capturing facades, and high-performance timber frames to achieve net-zero status.</p>
+                        <div class="bc-footer" style="border-top: none; padding-top: 0; margin-top: 2vw;">
+                            <div class="bc-author">
+                                <img src="image/images (3).webp" alt="Author" class="bc-author-img">
+                                <span class="bc-author-name">Marcus Finch</span>
+                            </div>
+                            <a href="404.html" class="bc-read-more">Read Article <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two-Column Blog Grid & Sidebar Layout -->
+            <div class="blog-layout">
+                <!-- Main Feed (70%) -->
+                <div class="blog-main-col">
+                    <div class="blog-grid">
+                        <!-- Post 1 (Innovation) -->
+                        <div class="blog-card gs-fade-up" data-category="innovation">
+                            <div class="bc-img-wrap">
+                                <span class="bc-category">Innovation</span>
+                                <img src="image/images (2).webp" alt="BIM Scanning">
+                            </div>
+                            <div class="bc-content">
+                                <div>
+                                    <div class="bc-meta">
+                                        <span>MAY 26, 2026</span>
+                                        <span>•</span>
+                                        <span>5 MIN READ</span>
+                                    </div>
+                                    <h3 class="bc-title">The Future of Smart High-Rises: Concrete & BIM Tech</h3>
+                                    <p class="bc-desc">Explore how architectural Virtual BIM simulations map structural load stress offsets before concrete foundation pouring.</p>
+                                </div>
+                                <div class="bc-footer">
+                                    <div class="bc-author">
+                                        <img src="image/images (3).webp" alt="Author" class="bc-author-img">
+                                        <span class="bc-author-name">Marcus Finch</span>
+                                    </div>
+                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Post 2 (Materials) -->
+                        <div class="blog-card gs-fade-up" data-category="materials" style="transition-delay: 0.1s">
+                            <div class="bc-img-wrap">
+                                <span class="bc-category">Materials</span>
+                                <img src="image/images (3).webp" alt="Green Steel">
+                            </div>
+                            <div class="bc-content">
+                                <div>
+                                    <div class="bc-meta">
+                                        <span>MAY 18, 2026</span>
+                                        <span>•</span>
+                                        <span>4 MIN READ</span>
+                                    </div>
+                                    <h3 class="bc-title">Eco-Certified Materials: Carbon Offsets in Foundations</h3>
+                                    <p class="bc-desc">How incorporating recycled metal insulations and eco-concrete formulations significantly reduces heavy building impact footprints.</p>
+                                </div>
+                                <div class="bc-footer">
+                                    <div class="bc-author">
+                                        <img src="image/images (4).webp" alt="Author" class="bc-author-img">
+                                        <span class="bc-author-name">Sarah Vance</span>
+                                    </div>
+                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Post 3 (Preservation) -->
+                        <div class="blog-card gs-fade-up" data-category="preservation" style="transition-delay: 0.2s">
+                            <div class="bc-img-wrap">
+                                <span class="bc-category">Preservation</span>
+                                <img src="image/images (4).webp" alt="Historical Renovation">
+                            </div>
+                            <div class="bc-content">
+                                <div>
+                                    <div class="bc-meta">
+                                        <span>MAY 05, 2026</span>
+                                        <span>•</span>
+                                        <span>6 MIN READ</span>
+                                    </div>
+                                    <h3 class="bc-title">Historic Restorations: Strength vs Heritage Aesthetics</h3>
+                                    <p class="bc-desc">Balancing crucial municipal safety code reinforcement requirements with sensitive structural architectural conservation.</p>
+                                </div>
+                                <div class="bc-footer">
+                                    <div class="bc-author">
+                                        <img src="image/images.webp" alt="Author" class="bc-author-img">
+                                        <span class="bc-author-name">David Curtis</span>
+                                    </div>
+                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Post 4 (Innovation) -->
+                        <div class="blog-card gs-fade-up" data-category="innovation">
+                            <div class="bc-img-wrap">
+                                <span class="bc-category">Innovation</span>
+                                <img src="image/images.webp" alt="Seismic Engineering">
+                            </div>
+                            <div class="bc-content">
+                                <div>
+                                    <div class="bc-meta">
+                                        <span>APRIL 28, 2026</span>
+                                        <span>•</span>
+                                        <span>7 MIN READ</span>
+                                    </div>
+                                    <h3 class="bc-title">Seismic Structural Upgrades in Active Earthquake Zones</h3>
+                                    <p class="bc-desc">A deep dive into dampers, fluid viscous shock components, and retrofitting older masonry foundations for fault-line stresses.</p>
+                                </div>
+                                <div class="bc-footer">
+                                    <div class="bc-author">
+                                        <img src="image/images (3).webp" alt="Author" class="bc-author-img">
+                                        <span class="bc-author-name">Marcus Finch</span>
+                                    </div>
+                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Post 5 (Materials) -->
+                        <div class="blog-card gs-fade-up" data-category="materials" style="transition-delay: 0.1s">
+                            <div class="bc-img-wrap">
+                                <span class="bc-category">Materials</span>
+                                <img src="image/images (1).webp" alt="Thermal Concrete Study">
+                            </div>
+                            <div class="bc-content">
+                                <div>
+                                    <div class="bc-meta">
+                                        <span>APRIL 14, 2026</span>
+                                        <span>•</span>
+                                        <span>5 MIN READ</span>
+                                    </div>
+                                    <h3 class="bc-title">Concrete Curing Stresses: A Thermal Imaging Study</h3>
+                                    <p class="bc-desc">Analyzing internal core temperatures in massive commercial block foundations to prevent micro-fracturing and structural cracking.</p>
+                                </div>
+                                <div class="bc-footer">
+                                    <div class="bc-author">
+                                        <img src="image/images (4).webp" alt="Author" class="bc-author-img">
+                                        <span class="bc-author-name">Sarah Vance</span>
+                                    </div>
+                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Post 6 (Safety) -->
+                        <div class="blog-card gs-fade-up" data-category="safety" style="transition-delay: 0.2s">
+                            <div class="bc-img-wrap">
+                                <span class="bc-category">Safety</span>
+                                <img src="image/images (2).webp" alt="OSHA compliance">
+                            </div>
+                            <div class="bc-content">
+                                <div>
+                                    <div class="bc-meta">
+                                        <span>MARCH 30, 2026</span>
+                                        <span>•</span>
+                                        <span>9 MIN READ</span>
+                                    </div>
+                                    <h3 class="bc-title">OSHA Site Compliance: Essential Structural Safety Protocols</h3>
+                                    <p class="bc-desc">A complete regulatory checklist for managing cranes, electrical isolations, and harness systems on complex sky-rise scaffolding.</p>
+                                </div>
+                                <div class="bc-footer">
+                                    <div class="bc-author">
+                                        <img src="image/images.webp" alt="Author" class="bc-author-img">
+                                        <span class="bc-author-name">David Curtis</span>
+                                    </div>
+                                    <a href="404.html" class="bc-read-more">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar (30%) -->
+                <aside class="blog-sidebar">
+                    <!-- Widget 1: Search -->
+                    <div class="sidebar-widget gs-fade-up">
+                        <h4 class="widget-title">Search Journal</h4>
+                        <div class="search-box">
+                            <input type="text" placeholder="Search articles...">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Widget 2: Popular Tags -->
+                    <div class="sidebar-widget gs-fade-up">
+                        <h4 class="widget-title">Popular Tags</h4>
+                        <div class="tags-cloud">
+                            <a href="404.html" class="tag-link">BIM Tech</a>
+                            <a href="404.html" class="tag-link">Green Steel</a>
+                            <a href="404.html" class="tag-link">Safety First</a>
+                            <a href="404.html" class="tag-link">Zoning Codes</a>
+                            <a href="404.html" class="tag-link">Eco Concrete</a>
+                            <a href="404.html" class="tag-link">Heritage</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Widget 3: Recent Reads -->
+                    <div class="sidebar-widget gs-fade-up">
+                        <h4 class="widget-title">Recent Reads</h4>
+                        <div class="recent-reads">
+                            <div class="rr-item">
+                                <img src="image/images (1).webp" alt="Thumb">
+                                <div class="rr-info">
+                                    <h5>Thermal Imaging in Curing Stresses</h5>
+                                    <span>May 24, 2026</span>
+                                </div>
+                            </div>
+                            <div class="rr-item">
+                                <img src="image/images (2).webp" alt="Thumb">
+                                <div class="rr-info">
+                                    <h5>Seismic Structural Innovations</h5>
+                                    <span>May 15, 2026</span>
+                                </div>
+                            </div>
+                            <div class="rr-item">
+                                <img src="image/images (3).webp" alt="Thumb">
+                                <div class="rr-info">
+                                    <h5>OSHA compliance checklists</h5>
+                                    <span>May 02, 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER SUBSCRIPTION SECTION -->
+    <section class="newsletter-section section-padding">
+        <div class="newsletter-box gs-fade-up">
+            <h2>STAY AHEAD OF GREEN BUILD ARCHITECTURE</h2>
+            <p>Subscribe to our quarterly engineering digest to receive architectural forecasts, municipal safety updates, and detailed sustainability strategies.</p>
+            <form class="newsletter-form" action="#">
+                <input type="email" placeholder="Your corporate email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="foot-top">
+            <div class="foot-cta">
+                <div class="logo" style="margin-bottom: 2vw;"><img src="whitelogo.webp" alt="BILDIUM Logo" style="height: 48px; width: auto;"></div>
+                <h2>YOUR VISION, OUR EXPERTISE – GET A FREE ESTIMATE</h2>
+                <a href="404.html" class="foot-btn">CALL NOW</a>
+                <p style="margin-top: 2vw; font-size: 0.9rem;">Contact us - (888) 456 7890</p>
+            </div>
+            <div class="foot-links-wrap">
+                <div class="foot-col" style="margin-right: 5vw;">
+                    <p style="margin-bottom: 1.5vw; max-width: 200px;">410 Sandtown, California 94001, USA</p>
+                    <p>info@example.com</p>
+                </div>
+                <div class="foot-col">
+                    <h5>QUICK LINKS</h5>
+                    <div class="footer-icons">
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            <span class="icon-tooltip">Home</span>
+                        </a>
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                            <span class="icon-tooltip">About Us</span>
+                        </a>
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                            <span class="icon-tooltip">Services</span>
+                        </a>
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <span class="icon-tooltip">Team</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="foot-col">
+                    <h5>SOCIAL MEDIA</h5>
+                    <div class="footer-icons">
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3.81l.39-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                            <span class="icon-tooltip">Facebook</span>
+                        </a>
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                            <span class="icon-tooltip">Instagram</span>
+                        </a>
+                        <a href="404.html" class="icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16m0-16L4 20"/></svg>
+                            <span class="icon-tooltip">X (Twitter)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot-bottom-text">
+            <div class="footer-marquee-track">
+                <div class="giant-text">CRAFTING STRONG FOUNDATIONS • CRAFTING STRONG FOUNDATIONS • </div>
+                <div class="giant-text">CRAFTING STRONG FOUNDATIONS • CRAFTING STRONG FOUNDATIONS • </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP & Lenis Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Smooth Scrolling (Lenis)
+            const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time)=>{ lenis.raf(time * 1000) });
+            gsap.ticker.lagSmoothing(0, 0);
+
+            // Mobile Menu Logic
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            let isMenuOpen = false;
+
+            menuBtn.addEventListener('click', () => {
+                isMenuOpen = !isMenuOpen;
+                if(isMenuOpen) {
+                    mobileMenu.classList.add('is-open');
+                    menuBtn.classList.add('is-active');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    mobileMenu.classList.remove('is-open');
+                    menuBtn.classList.remove('is-active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Navbar Scroll Effect
+            const nav = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if(window.scrollY > 100) {
+                    nav.style.background = 'rgba(17, 17, 17, 0.95)';
+                    nav.style.backdropFilter = 'blur(10px)';
+                    nav.style.padding = '1vw 4vw';
+                } else {
+                    nav.style.background = 'transparent';
+                    nav.style.backdropFilter = 'none';
+                    nav.style.padding = '1.5vw 4vw';
+                }
+            });
+
+            // 3. Hero Initial Animation (Split Text)
+            const h1 = document.getElementById('hero-title');
+            const h1Text = h1.textContent;
+            h1.innerHTML = h1Text.split('').map(char => char.trim() === '' ? '&nbsp;' : `<span class="char">${char}</span>`).join('');
+            h1.classList.add('clip-text');
+
+            const tlHero = gsap.timeline();
+            tlHero.from("#hero-title .char", { yPercent: 110, duration: 1.2, ease: "power4.out", stagger: 0.08, delay: 0.2 })
+                  .from(".hero-subtitle", { y: 30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.8");
+
+            // Hero Parallax
+            gsap.to(".hero-bg", {
+                yPercent: 30, ease: "none",
+                scrollTrigger: { trigger: ".blog-hero", start: "top top", end: "bottom top", scrub: true }
+            });
+            gsap.to(".hero-content", {
+                yPercent: 50, opacity: 0, ease: "none",
+                scrollTrigger: { trigger: ".blog-hero", start: "top top", end: "bottom top", scrub: true }
+            });
+
+            // 4. Split Text Animations for all other Headings & Reveals
+            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, .gs-text-reveal');
+            headings.forEach(heading => {
+                if(heading.querySelector('.stat-counter') || heading.querySelector('svg') || heading.id === 'hero-title') return;
+
+                let newHTML = '';
+                const splitTextNode = (text) => {
+                    return text.split('').map(char => {
+                        if(char.trim() === '') return '&nbsp;';
+                        return `<span class="char" style="display:inline-block;">${char}</span>`;
+                    }).join('');
+                };
+
+                const nodes = Array.from(heading.childNodes);
+                nodes.forEach(node => {
+                    if (node.nodeType === 3) {
+                        newHTML += splitTextNode(node.textContent);
+                    } else if (node.nodeType === 1 && node.tagName === 'BR') {
+                        newHTML += '<br>';
+                    } else if (node.nodeType === 1 && node.tagName === 'SPAN') {
+                        newHTML += `<span class="${node.className}" style="${node.style.cssText}">${splitTextNode(node.textContent)}</span>`;
+                    } else {
+                        newHTML += node.outerHTML;
+                    }
+                });
+
+                heading.innerHTML = newHTML;
+                heading.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)';
+
+                gsap.from(heading.querySelectorAll('.char'), {
+                    scrollTrigger: {
+                        trigger: heading,
+                        start: "top 85%"
+                    },
+                    yPercent: 110,
+                    duration: 0.8,
+                    ease: "power4.out",
+                    stagger: 0.02
+                });
+            });
+
+            // Filter functionality
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const blogCards = document.querySelectorAll('.blog-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    blogCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            gsap.to(card, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out", display: "flex" });
+                        } else {
+                            gsap.to(card, { opacity: 0, scale: 0.9, duration: 0.4, ease: "power2.in", display: "none" });
+                        }
+                    });
+                });
+            });
+
+            // Fade Up Elements
+            gsap.utils.toArray('.gs-fade-up').forEach(elem => {
+                gsap.from(elem, {
+                    scrollTrigger: { trigger: elem, start: "top 90%" },
+                    y: 50, opacity: 0, duration: 1, ease: "power3.out"
+                });
+            });
+        });
+    </script>
+</body>
+</html>
